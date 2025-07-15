@@ -1,6 +1,6 @@
 ﻿using AdminPanel.Domain.Entities;
 
-namespace AdminPanel.Application.Services
+namespace AdminPanel.Application.Interfaces
 {
     public interface IUserService
     {

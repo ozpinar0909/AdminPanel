@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminPanel.Application\AdminPanel.Application.csproj" />
-    <ProjectReference Include="..\AdminPanel.Domain\AdminPanel.Domain.csproj" />
+    <ProjectReference Include="..\AdminPanel.Dal\AdminPanel.Dal.csproj" />
+    <ProjectReference Include="..\AdminPanel.Entities\AdminPanel.Entities.csproj" />
   </ItemGroup>
 
 </Project>

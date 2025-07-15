@@ -1,15 +1,30 @@
+using AdminPanel.DAL.Context;
+using AdminPanel.DAL.Interfaces;
+using AdminPanel.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Connection string'i al
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// DbContext'i DI container'a ekle
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+// Generic Repository'yi DI container'a ekle
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+// Controller ve View servisi
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Uygulama pipeline'ý
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -20,6 +35,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Varsayýlan route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

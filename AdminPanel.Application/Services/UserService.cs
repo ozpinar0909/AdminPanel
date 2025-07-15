@@ -1,13 +1,14 @@
-﻿using AdminPanel.Application.Services;
+﻿using AdminPanel.Application.Interfaces;
 using AdminPanel.Domain.Entities;
 using AdminPanel.Domain.Interfaces;
+
 namespace AdminPanel.Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly IGenericRepository<User> _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IGenericRepository<User> userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -25,23 +26,16 @@ namespace AdminPanel.Application.Services
         public async Task AddUserAsync(User user)
         {
             await _userRepository.AddAsync(user);
-            await _userRepository.SaveAsync();
         }
 
         public async Task UpdateUserAsync(User user)
         {
-            _userRepository.Update(user);
-            await _userRepository.SaveAsync();
+            await _userRepository.UpdateAsync(user);
         }
 
         public async Task DeleteUserAsync(int id)
         {
-            var user = await _userRepository.GetByIdAsync(id);
-            if (user != null)
-            {
-                _userRepository.Delete(user);
-                await _userRepository.SaveAsync();
-            }
+            await _userRepository.DeleteAsync(id);
         }
     }
 }
