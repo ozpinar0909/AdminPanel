@@ -1,12 +1,14 @@
 ﻿using AdminPanel.BLL.Service;
 using AdminPanel.Entity.Entities;
 using AdminPanel.Web.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminPanel.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userManager;

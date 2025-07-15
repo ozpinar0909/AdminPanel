@@ -6,9 +6,15 @@ using AdminPanel.DAL.Repositories;
 using AdminPanel.Webapi.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.EntityFrameworkCore; // Add this using directive at the top of the file  
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models; // Add this using directive at the top of the file  
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 // Add services to the container.  
 
@@ -24,8 +30,35 @@ builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>(); 
 builder.Services.AddFluentValidationAutoValidation();
 // Swagger  
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "AdminPanel API", Version = "v1" });
 
+    // JWT Authentication için Swagger’a Security Definition ekle
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header kullanýmý: 'Bearer {token}'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference= new OpenApiReference
+                {
+                    Type= ReferenceType.SecurityScheme,
+                    Id= "Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.  
