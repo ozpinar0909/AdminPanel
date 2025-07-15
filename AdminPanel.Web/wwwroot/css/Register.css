@@ -1,0 +1,88 @@
+﻿/* auth.css - Beyaz arka planlı modern login/register */
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff; /* Beyaz arka plan */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+}
+
+.auth-container {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 50px 40px;
+    width: 380px;
+    max-width: 90vw;
+    text-align: center;
+}
+
+    .auth-container h2 {
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #2c3e50;
+        letter-spacing: 1.2px;
+    }
+
+.form-control {
+    border-radius: 10px;
+    border: 1.5px solid #ccc;
+    padding: 12px 15px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #2980b9;
+        box-shadow: 0 0 8px rgba(41, 128, 185, 0.4);
+        outline: none;
+    }
+
+button.btn-primary {
+    width: 100%;
+    background: #2980b9;
+    border: none;
+    padding: 14px 0;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(41, 128, 185, 0.4);
+    transition: background-color 0.3s ease;
+}
+
+    button.btn-primary:hover {
+        background: #1c5980;
+        box-shadow: 0 10px 20px rgba(28, 89, 128, 0.5);
+    }
+
+.link-panel {
+    margin-top: 18px;
+    font-size: 0.9rem;
+}
+
+    .link-panel a {
+        color: #2980b9;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease;
+    }
+
+        .link-panel a:hover {
+            color: #1c5980;
+            text-decoration: underline;
+        }
+
+.text-danger {
+    font-size: 0.85rem;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    display: block;
+    color: #e74c3c;
+}

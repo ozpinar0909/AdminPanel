@@ -11,5 +11,10 @@ namespace AdminPanel.Web.Dtos
         [Required(ErrorMessage = "Email alanı zorunludur.")]
         [EmailAddress(ErrorMessage = "Geçerli bir email adresi giriniz.")]
         public string Email { get; set; } = null!;
+
+        [Required(ErrorMessage = "Şifre alanı zorunludur.")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Şifre en az 6 karakter olmalı.")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = null!;
     }
 }

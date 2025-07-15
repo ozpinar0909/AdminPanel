@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminPanel.Dal\AdminPanel.Dal.csproj" />
-    <ProjectReference Include="..\AdminPanel.Entities\AdminPanel.Entities.csproj" />
-    <ProjectReference Include="..\AdminPanel.BLL\AdminPanel.Bll.csproj" />
+    <ProjectReference Include="..\AdminPanel.Api\AdminPanel.Api.csproj" />
+    <ProjectReference Include="..\AdminPanel.Bll\AdminPanel.Bll.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

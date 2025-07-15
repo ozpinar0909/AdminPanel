@@ -1,0 +1,45 @@
+﻿@model AdminPanel.Api.Dtos.UserRegisterDto
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = null; 
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Giriş Yap - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/login.css" />
+  
+</head>
+<body>
+    <div class="login-panel">
+        <h2>Giriş Yap</h2>
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Kullanıcı Adı</label>
+                <input asp-for="Name" class="form-control" placeholder="Kullanıcı adınızı girin" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Şifre</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Şifrenizi girin" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+
+            <div class="register-link">
+                <span>Hesabınız yok mu? <a asp-controller="Account" asp-action="Register">Kayıt Ol</a></span>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

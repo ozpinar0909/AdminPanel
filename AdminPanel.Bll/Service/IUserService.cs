@@ -9,5 +9,9 @@ namespace AdminPanel.BLL.Service
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
+        Task<User?> AuthenticateAsync(string name, string password);
+
     }
 }
+
+

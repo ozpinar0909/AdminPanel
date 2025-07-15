@@ -3,42 +3,47 @@ using AdminPanel.BLL.Service;
 using AdminPanel.DAL.Context;
 using AdminPanel.DAL.Interfaces;
 using AdminPanel.DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Connection string'i al
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-// DbContext'i DI container'a ekle
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Generic Repository'yi DI container'a ekle
+// DI: IUserService - UserManager kaydý
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-// Controller ve View servisi
+
+// MVC Controller + View desteði
 builder.Services.AddControllersWithViews();
+
+// Cookie Authentication yapýlandýrmasý
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";          // Giriþ sayfasý URL'si
+        options.AccessDeniedPath = "/Account/AccessDenied";  // Yetkisiz sayfa (isteðe baðlý)
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);  // Cookie süresi
+    });
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
-// Uygulama pipeline'ý
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    // app.UseHsts(); // Ýstersen güvenlik için ekleyebilirsin
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication();  // Kimlik doðrulama orta katmaný
+app.UseAuthorization();   // Yetkilendirme orta katmaný
 
-// Varsayýlan route
+// Default route (controller/action/id)
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

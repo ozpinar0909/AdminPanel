@@ -3,7 +3,7 @@ using AdminPanel.BLL.Service;
 using AdminPanel.DAL.Context;
 using AdminPanel.DAL.Interfaces;
 using AdminPanel.DAL.Repositories;
-using AdminPanel.Webapi.Validators;
+using AdminPanel.Api.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +26,8 @@ builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddControllers();
-builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>(); // Updated to use the recommended method  
+builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UserRegisterDtoValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 // Swagger  
 builder.Services.AddEndpointsApiExplorer();

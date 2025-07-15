@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace AdminPanel.Webapi.Controllers
+namespace AdminPanel.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -22,10 +22,10 @@ namespace AdminPanel.Webapi.Controllers
         {
             // Burada gerçek kullanıcı doğrulaması yapmalısın
             // Şimdilik örnek olarak sabit kullanıcı kontrolü
-            if (model.Username != "admin" || model.Password != "1234")
+            if (model.Name != "admin" || model.Password != "1234")
                 return Unauthorized("Kullanıcı adı veya şifre hatalı");
 
-            var token = GenerateJwtToken(model.Username);
+            var token = GenerateJwtToken(model.Name);
             return Ok(new { Token = token });
         }
 
@@ -57,7 +57,7 @@ namespace AdminPanel.Webapi.Controllers
 
     public class LoginRequest
     {
-        public string Username { get; set; }
+        public string Name { get; set; }
         public string Password { get; set; }
     }
 }
