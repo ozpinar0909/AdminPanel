@@ -3,44 +3,40 @@ using AdminPanel.BLL.Service;
 using AdminPanel.DAL.Context;
 using AdminPanel.DAL.Interfaces;
 using AdminPanel.DAL.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Connection string'i al
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// Add services to the container.
 
-// DbContext'i DI container'a ekle
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Generic Repository'yi DI container'a ekle
+// Dependency Injection
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-// Controller ve View servisi
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Uygulama pipeline'ý
-if (!app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
 
 app.UseAuthorization();
 
-// Varsayýlan route
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.Run();
