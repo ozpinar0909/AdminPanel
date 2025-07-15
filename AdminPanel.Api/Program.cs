@@ -3,30 +3,32 @@ using AdminPanel.BLL.Service;
 using AdminPanel.DAL.Context;
 using AdminPanel.DAL.Interfaces;
 using AdminPanel.DAL.Repositories;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
+using AdminPanel.Webapi.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore; // Add this using directive at the top of the file  
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container.  
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Dependency Injection
+// Dependency Injection  
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddControllers();
-
-// Swagger
+builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>(); // Updated to use the recommended method  
+builder.Services.AddFluentValidationAutoValidation();
+// Swagger  
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline.  
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
