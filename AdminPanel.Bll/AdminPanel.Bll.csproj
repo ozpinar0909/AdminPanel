@@ -1,15 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AdminPanel.Dal\AdminPanel.Dal.csproj" />
     <ProjectReference Include="..\AdminPanel.Entities\AdminPanel.Entities.csproj" />
-    <ProjectReference Include="..\AdminPanel.BLL\AdminPanel.Bll.csproj" />
   </ItemGroup>
 
 </Project>
