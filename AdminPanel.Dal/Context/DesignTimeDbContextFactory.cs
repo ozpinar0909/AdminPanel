@@ -9,9 +9,8 @@ namespace AdminPanel.DAL.Context
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            // Burada Webapi katmanının appsettings.json dosyasını göstereceğiz
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..", "AdminPanel.Api")) // Webapi klasörü
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..", "AdminPanel.Api")) 
                 .AddJsonFile("appsettings.json")
                 .Build();
 
