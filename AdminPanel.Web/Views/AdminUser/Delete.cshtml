@@ -1,0 +1,45 @@
+﻿@using AdminPanel.Entity.Entities
+@model User
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Kullanıcıyı Sil";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h1 class="display-5 fw-bold text-danger">@ViewData["Title"]</h1>
+            <p class="lead text-muted">Bu kullanıcıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">ID:</dt>
+                        <dd class="col-sm-8">@Model.Id</dd>
+
+                        <dt class="col-sm-4">Adı:</dt>
+                        <dd class="col-sm-8">@Model.Name</dd>
+
+                        <dt class="col-sm-4">E-posta:</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+                    </dl>
+
+                    <form asp-controller="AdminUser" asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="Id" /> 
+
+                        <button type="submit" class="btn btn-danger me-2">
+                            <i class="fas fa-trash-alt me-2"></i> Sil
+                        </button>
+                        <a asp-controller="AdminUser" asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> İptal
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿@using AdminPanel.Entity.Entities
+@model User
+@{
+    Layout = "_Layout"; 
+    
+    ViewData["Title"] = "Yeni Kullanıcı Oluştur"; 
+}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h1 class="display-5 fw-bold text-primary">@ViewData["Title"]</h1>
+            <p class="lead text-muted">Yeni bir kullanıcı hesabı oluşturun.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6"> 
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div> 
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Adı</label>
+                            <input asp-for="Name" class="form-control" placeholder="Kullanıcının adını girin" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">E-posta</label>
+                            <input asp-for="Email" class="form-control" placeholder="example@domain.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Şifre</label>
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Şifrenizi girin" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="fas fa-save me-2"></i> Oluştur
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Listeye Geri Dön
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

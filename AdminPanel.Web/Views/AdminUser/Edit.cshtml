@@ -1,0 +1,57 @@
+﻿@using AdminPanel.Entity.Entities
+@model User
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Kullanıcı Düzenle";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h1 class="display-5 fw-bold text-primary">@ViewData["Title"]</h1>
+            <p class="lead text-muted">Kullanıcı bilgilerini güncelleyin.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <form asp-controller="AdminUser" asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" /> 
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Adı</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">E-posta</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Şifre</label>
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Yeni şifrenizi girin (değiştirmek istemiyorsanız boş bırakın)" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="fas fa-sync-alt me-2"></i> Güncelle
+                        </button>
+                        <a asp-controller="AdminUser" asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Listeye Geri Dön
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
