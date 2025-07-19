@@ -1,0 +1,124 @@
+﻿/* wwwroot/css/sidebar.css */
+
+/* Genel Sayfa Yapısı */
+#wrapper {
+    overflow-x: hidden; /* Yatay kaydırmayı engelle */
+}
+
+#sidebar-wrapper {
+    min-height: 100vh; /* Sidebar'ın ekran yüksekliğini kaplamasını sağlar */
+    margin-left: -12rem; /* Sidebar genişliği 12rem, başlangıçta gizle */
+    transition: margin .25s ease-out; /* Geçiş efekti */
+    width: 12rem; /* Sidebar genişliği (daha dar) */
+    z-index: 1000; /* Diğer elementlerin üzerinde olmasını sağlar */
+    position: fixed; /* Ekranı kaydırsan bile sabit kalır */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05); /* Hafif sağ gölge */
+}
+
+#page-content-wrapper {
+    min-width: 100vw; /* İçerik alanının başlangıçta tam genişliği almasını sağlar */
+    transition: margin .25s ease-out; /* Geçiş efekti */
+    background-color: #f8f9fa; /* Hafif gri arka plan */
+}
+
+/* Sidebar Açık/Kapalı Durumları */
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0; /* Sidebar açıkken soldan sıfıra getir */
+}
+
+#wrapper.toggled #page-content-wrapper {
+    margin-left: 12rem; /* Sidebar açıkken içerik alanını sağa it */
+    min-width: calc(100vw - 12rem); /* İçerik alanının yeni genişliği */
+}
+
+/* Sidebar List Grup Item Stilleri */
+.sidebar-wrapper .list-group-item {
+    padding-left: 1.2rem; /* Metin ve ikonlar için iç boşluk */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Hover efekti için geçiş */
+    font-size: 0.9rem; /* Menü öğesi yazı boyutu */
+    display: flex; /* İkon ve metni hizalamak için flexbox */
+    align-items: center; /* Dikeyde ortala */
+    color: #343a40; /* Koyu metin rengi */
+}
+
+    .sidebar-wrapper .list-group-item i {
+        font-size: 1rem; /* İkon boyutu */
+        width: 1.2rem; /* İkon için sabit alan */
+        text-align: center; /* İkonu ortala */
+    }
+
+    .sidebar-wrapper .list-group-item:hover {
+        background-color: #e9ecef; /* Hover'da hafif gri ton */
+        color: #007bff; /* Hover'da mavi metin rengi */
+    }
+
+    .sidebar-wrapper .list-group-item.active {
+        background-color: #e2e6ea; /* Aktif öğe için farklı arka plan */
+        border-left: 4px solid #0d6efd !important; /* Aktif öğe için sol kenarlık */
+        color: #007bff; /* Aktif öğe metin rengi mavi */
+        font-weight: 600; /* Aktif öğe kalın */
+    }
+
+/* Sidebar Alt Kenarlıktaki Menü Öğesi (Çıkış Yap gibi) */
+.sidebar-wrapper .list-group-flush {
+    height: calc(100vh - 80px); /* Sidebar başlığı hariç kalan yüksekliği kapla */
+    display: flex; /* Flexbox ile içerik dağılımı */
+    flex-direction: column; /* İçeriği dikey sırala */
+}
+
+/* Sidebar başlığındaki butonun görünürlüğü */
+.sidebar-heading .btn-outline-secondary {
+    display: none; /* Büyük ekranlarda gizle */
+}
+
+/* Navbar */
+.navbar {
+    z-index: 999; /* Navbar'ın sidebar üzerinde olmasını sağlar */
+}
+
+/* Küçük Ekranlar İçin Ayarlar */
+@media (max-width: 767.98px) { /* 768px'den küçük ekranlar için */
+    #sidebar-wrapper {
+        margin-left: -12rem; /* Sidebar varsayılan olarak kapalı */
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0; /* Sidebar açık */
+    }
+
+    #page-content-wrapper {
+        min-width: 100vw; /* İçerik tam genişlikte */
+        margin-left: 0; /* İçerik sola dayalı */
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        margin-left: 12rem; /* Sidebar açıkken içeriği it */
+        min-width: calc(100vw - 12rem);
+    }
+
+    /* Küçük ekranlarda sidebar başlığındaki butonu göster */
+    .sidebar-heading .btn-outline-secondary {
+        display: inline-block; /* Küçük ekranlarda göster */
+    }
+}
+
+/* Büyük Ekranlar İçin Ayarlar */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0; /* Büyük ekranlarda sidebar varsayılan olarak açık */
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%; /* Sayfa içeriği genişliği */
+        margin-left: 12rem; /* Büyük ekranlarda içerik alanını sağa it */
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -12rem; /* Büyük ekranlarda toggled ise gizle */
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        margin-left: 0; /* Büyük ekranlarda toggled ise içerik alanını tam genişliğe getir */
+    }
+}
